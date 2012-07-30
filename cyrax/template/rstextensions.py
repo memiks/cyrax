@@ -7,7 +7,8 @@ logger = logging.getLogger(__name__)
 
 RST_SETTINGS = {
     'initial_header_level': 2,
-    'footnote_references': 'superscript'
+    'footnote_references': 'superscript',
+    'doctitle_xform': 0
     }
 
 
