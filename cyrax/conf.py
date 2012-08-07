@@ -14,6 +14,8 @@ Any line without a ":" is simply skipped. Field with a key of ``date`` are
 special case and are checked to contain date value.
 '''
 
+import locale, sys
+
 from datetime import datetime
 
 
@@ -22,7 +24,14 @@ def parse(data):
     for line in data.splitlines():
         if ':' in line:
             key, value = parse_line(line)
-            result[key] = value
+
+            if key == 'locale':
+              reload(sys)
+              locale.setlocale(locale.LC_TIME, (value, 'utf-8'))
+              sys.setdefaultencoding('utf-8')
+
+            else:
+              result[key] = value
     return result
 
 
