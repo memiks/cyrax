@@ -3,12 +3,13 @@ import jinja2
 
 def markdown(value):
     try:
-        from markdown import Markdown
-        md = Markdown(extensions=['footnotes'])
+        from markdown2 import Markdown
+        md = Markdown(
+            extras={'footnotes': None, 'code-friendly': None, 'demote-headers': 1})
     except ImportError:
         try:
-            from markdown2 import Markdown
-            md = Markdown(extras=['footnotes', 'code-friendly'])
+            from markdown import Markdown
+            md = Markdown(extensions=['footnotes'])
         except ImportError:
             raise jinja2.TemplateError('Markdown is not installed!')
 
