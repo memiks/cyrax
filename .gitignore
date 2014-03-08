@@ -4,3 +4,6 @@ _build/
 /dist/
 /build/
 /cyrax.egg-info/
+/nbproject/private/
+/nbproject/project.xml
+/nbproject/project.properties
