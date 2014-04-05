@@ -1,4 +1,6 @@
-import os, shutil, logging
+import os
+import shutil
+import logging
 import os.path as op
 import sys
 
@@ -9,7 +11,8 @@ from cyrax.models import TYPE_LIST
 from cyrax.events import events
 
 try:
-    import cyrax.rstpost
+    import cyrax
+    import rstpost
 except ImportError:
     pass # no docutils :(
 
@@ -31,7 +34,7 @@ def impcallback(relpath, root):
 
 def get_entry(site, path):
     try:
-        Type = (t for t in TYPE_LIST if t.check(site, path)).next()
+        Type = next((t for t in TYPE_LIST if t.check(site, path)))
     except StopIteration:
         logger.error("Can't determine type for %s" % path)
         return
@@ -47,7 +50,9 @@ class Site(object):
         self.settings = Settings(parent_tmpl='_base.html')
         conf = op.join(self.root, 'settings.cfg')
         if op.exists(conf):
-            self.settings.read(file(conf).read().decode('utf-8'))
+            file = open(conf, encoding='utf-8')
+            self.settings.read(file.read())
+            #self.settings.read(file(conf).read().decode('utf-8'))
 
         site_base_path = base_path(self.url)
         self.dest = op.join(dest, url2path(site_base_path[1:]))
@@ -75,7 +80,7 @@ class Site(object):
     def __getattr__(self, name):
         try:
             return self.settings[name]
-        except KeyError, e:
+        except KeyError as e:
             raise AttributeError(str(e))
 
     def _traverse(self):

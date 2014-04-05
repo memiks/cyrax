@@ -17,6 +17,7 @@ special case and are checked to contain date value.
 import locale, sys
 
 from datetime import datetime
+import imp
 
 
 def parse(data):
@@ -26,7 +27,7 @@ def parse(data):
             key, value = parse_line(line)
 
             if key == 'locale':
-              reload(sys)
+              imp.reload(sys)
               locale.setlocale(locale.LC_TIME, (value, 'utf-8'))
               sys.setdefaultencoding('utf-8')
 
@@ -84,7 +85,7 @@ class Settings(dict):
     def __getattr__(self, name):
         try:
             return self[name]
-        except KeyError, e:
+        except KeyError as e:
             raise AttributeError(str(e))
 
     def __setattr__(self, name, value):

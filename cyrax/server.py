@@ -1,8 +1,8 @@
 import os
 import posixpath
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
-import urllib
+from http.server import SimpleHTTPRequestHandler
+from http.server import HTTPServer
+import urllib.request, urllib.parse, urllib.error
 import logging
 
 from cyrax import autoreload, core
@@ -23,9 +23,9 @@ class CyraxHTTPRequestHandler(SimpleHTTPRequestHandler):
         # abandon query parameters
         path = path.split('?', 1)[0]
         path = path.split('#', 1)[0]
-        path = posixpath.normpath(urllib.unquote(path))
+        path = posixpath.normpath(urllib.parse.unquote(path))
         words = path.split('/')
-        words = filter(None, words)
+        words = [_f for _f in words if _f]
         try:
             path = self.rootpath
         except AttributeError:

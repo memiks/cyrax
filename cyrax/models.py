@@ -119,7 +119,9 @@ class Entry(object):
         self.template.globals['entry'] = self
         path = self.get_dest()
         makedirs(op.dirname(path))
-        file(path, 'w').write(self.template.render().encode('utf-8'))
+        file = open(path, 'w', encoding='utf-8')
+        file.write(self.template.render())
+        #file(path, 'w').write(self.template.render().encode('utf-8'))
 
 
 class NonHTML(Entry):
@@ -147,7 +149,7 @@ class Post(Entry):
         # dumb hack
         self.settings.date = self.date
         self.site.posts.append(self)
-        self.site.posts.sort(cmp=postcmp, reverse=True)
+        #self.site.posts.sort(cmp=postcmp, reverse=True)
         self.site.latest_post = self.site.posts[0]
 
         self._process_tags()
@@ -157,7 +159,7 @@ class Post(Entry):
             tagentries = self.site.tags.setdefault(tag, [])
             if self not in tagentries:
                 tagentries.append(self)
-                self.site.tags[tag].sort(cmp=postcmp, reverse=True)
+                #self.site.tags[tag].sort(cmp=postcmp, reverse=True)
 
     def __str__(self):
         return self.slug

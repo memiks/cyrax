@@ -10,6 +10,7 @@
 
 import logging
 from collections import deque
+import sys
 
 logger = logging.getLogger(__name__)
 # `events` global is defined at the end
@@ -29,7 +30,7 @@ class EventManager(object):
         If `prepend` is True, prepend callback to a queue of callbacks.
         """
         listener_id = self._last_listener
-        event = intern(event)
+        event = sys.intern(event)
 
         if event not in self._listeners:
             self._listeners[event] = deque([callback])
