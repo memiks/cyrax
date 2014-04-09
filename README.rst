@@ -11,6 +11,8 @@ that I'm dissatisfied with both of them by different reasons. When I tried to
 come up with name I remembered my favourite character from Mortal Kombat 3 so
 here we go.
 
+The version on this repo is compatible with Python3
+
 Installation
 ------------
 
@@ -34,10 +36,12 @@ at `example site`_.
 News
 ----
 
-Indeed something happens with each release and you are probably interested what
-(and too lazy to read `changelog`_).
+2to3 (05.04.2014)
+~~~~~~~~~~~~~~~~~
 
-.. _changelog: http://github.com/piranha/cyrax/
+- Correct deprecated warning on smartyPants
+- Migrate code to Python 3 (tested on Python 3.4).
+
 
 2.4-2.5 (16.08.2011)
 ~~~~~~~~~~~~~~~~~~~~
