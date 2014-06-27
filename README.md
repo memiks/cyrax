@@ -1,5 +1,3 @@
-.. -*- mode: rst -*-
-
 =======
  Cyrax
 =======
@@ -16,9 +14,28 @@ The version on this repo is compatible with Python3
 Installation
 ------------
 
-Well, it's quite simple, as usually::
+Well, it's quite simple, as usually
 
-  pip install cyrax
+ ```bash
+ # download master.zip:
+ wget https://github.com/memiks/cyrax/archive/master.zip
+ 
+ # unzip it
+ unzip master.zip
+ 
+ # go to cyrax-master folder
+ cd cyrax-master
+ 
+ # install dependancies
+ pip install markdown2
+ pip install pygments
+ 
+ # compile il with python
+ ./setup build
+ 
+ # install it as root
+ sudo ./setup install
+ ```
 
 Cyrax depends on Jinja2 template library, so you can install it through your OS
 package system (in other case pip will install it automatically).
