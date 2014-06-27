@@ -40,7 +40,7 @@ def amp(text):
     # tag_pattern from http://haacked.com/archive/2004/10/25/usingregularexpressionstomatchhtml.aspx
     # it kinda sucks but it fixes the standalone amps in attributes bug
     tag_pattern = '</?\w+((\s+\w+(\s*=\s*(?:".*?"|\'.*?\'|[^\'">\s]+))?)+\s*|\s*)/?>'
-    amp_finder = re.compile(r"(\s|&nbsp;)(&|&amp;|&\#38;)(\s|&nbsp;)")
+    amp_finder = re.compile(r"(\s| )(&|&amp;|&\#38;)(\s| )")
     intra_tag_finder = re.compile(r'(?P<prefix>(%s)?)(?P<text>([^<]*))(?P<suffix>(%s)?)' % (tag_pattern, tag_pattern))
     def _amp_process(groups):
         prefix = groups.group('prefix') or ''
@@ -263,7 +263,7 @@ def widont(text):
                                    (</(a|em|span|strong|i|b)>\s*)*                 # optional closing inline tags with optional white space after each
                                    ((</(p|h[1-6]|li|dt|dd)>)|$))                   # end with a closing p, h1-6, li or the end of the string
                                    """, re.VERBOSE)
-    output = widont_finder.sub(jinja2.Markup(r'\1&nbsp;\2'), text)
+    output = widont_finder.sub(jinja2.Markup(r'\1 \2'), text)
     return jinja2.Markup(output)
 
 
