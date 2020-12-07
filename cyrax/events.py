@@ -12,6 +12,13 @@ import logging
 from collections import deque
 import sys
 
+
+try:
+    from sys import intern
+except ImportError:
+    pass
+
+
 logger = logging.getLogger(__name__)
 # `events` global is defined at the end
 

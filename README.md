@@ -1,11 +1,14 @@
 =======
  Cyrax
 =======
+.. image:: https://img.shields.io/pypi/v/cyrax
+   :alt: PyPI
+   :target: https://pypi.org/project/cyrax/
 
 Cyrax is a static site generator using Jinja2_ template engine.
 
-It's inspired from Jekyll_ and Hyde_ site generators and started when I realized
-that I'm dissatisfied with both of them by different reasons. When I tried to
+It's inspired by Jekyll_ and Hyde_ site generators and started when I realized
+that I'm dissatisfied with both of them for different reasons. When I tried to
 come up with name I remembered my favourite character from Mortal Kombat 3 so
 here we go.
 
@@ -37,10 +40,10 @@ Well, it's quite simple, as usually
  sudo ./setup install
  ```
 
-Cyrax depends on Jinja2 template library, so you can install it through your OS
+Cyrax depends on the Jinja2 template library, so you can install it through your OS
 package system (in other case pip will install it automatically).
 
-Note, please, that to use parsers like markdown, or reST, or textile,
+Note, please, that in order to use parsers like markdown, or reST, or textile,
 corresponding libraries should be installed (either python-markdown or
 python-markdown2 are good enough for markdown).
 
@@ -49,6 +52,10 @@ Usage
 
 Read some docs_, run ``cyrax --help`` to read about command line options, look
 at `example site`_.
+
+Also it's really easy to extend Cyrax, see `an example`_.
+
+.. _an example: https://github.com/piranha/osgameclones/blob/master/_ext.py
 
 News
 ----
@@ -59,6 +66,27 @@ News
 - Correct deprecated warning on smartyPants
 - Migrate code to Python 3 (tested on Python 3.4).
 
+
+3.1 (17.12.2019)
+~~~~~~~~~~~~~~~~
+
+- Fix for rendering unicode data to file
+
+3.0 (01.10.2019)
+~~~~~~~~~~~~~~~~
+
+- Python 3 support
+- `settings.cfg` renamed to `.cyrax.cfg`
+
+2.7 (11.10.2016)
+~~~~~~~~~~~~~~~~
+
+- support for globs in `exclude` in `.cyrax.cfg`
+
+2.6 (10.10.2016)
+~~~~~~~~~~~~~~~~
+
+- make Jinja2 `do` extension available in templates
 
 2.4-2.5 (16.08.2011)
 ~~~~~~~~~~~~~~~~~~~~

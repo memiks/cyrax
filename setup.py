@@ -10,26 +10,26 @@ import cyrax
 
 setup(name = 'cyrax',
       description = 'Static site generator',
-      long_description = read('README.md'),
-      license = 'BSD',
+      long_description = read('README.rst'),
+      license = 'ISC',
       version = cyrax.__version__,
       author = 'Alexander Solovyov',
       author_email = 'alexander@solovyov.net',
-      url = 'http://piranha.org.ua/cyrax/',
-      install_requires = ['Jinja2', 'smartypants'],
+      url = 'https://github.com/piranha/cyrax/',
+      install_requires = ['Jinja2', 'markdown2', 'smartypants'],
       packages = ['cyrax', 'cyrax.template'],
 
       entry_points = {
-        'console_scripts': ['cyrax = cyrax:main']
-        },
+          'console_scripts': ['cyrax = cyrax:main']
+      },
 
       classifiers = [
-        'Environment :: Console',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Topic :: Internet :: WWW/HTTP',
-        'Topic :: Utilities',
-        ],
+          'Environment :: Console',
+          'License :: OSI Approved :: ISC License (ISCL)',
+          'Operating System :: OS Independent',
+          'Programming Language :: Python',
+          'Topic :: Internet :: WWW/HTTP',
+          'Topic :: Utilities',
+      ],
       platforms='any',
-      )
+)

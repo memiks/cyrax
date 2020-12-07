@@ -3,6 +3,8 @@ import shutil
 import logging
 import os.path as op
 import sys
+import glob
+from io import open
 
 from cyrax.conf import Settings
 from cyrax.template import initialize_env
@@ -18,6 +20,7 @@ except ImportError:
 
 
 logger = logging.getLogger(__name__)
+fnmatch = glob.fnmatch.fnmatch
 
 
 def ishidden(name):
@@ -34,7 +37,7 @@ def impcallback(relpath, root):
 
 def get_entry(site, path):
     try:
-        Type = next((t for t in TYPE_LIST if t.check(site, path)))
+        Type = next(t for t in TYPE_LIST if t.check(site, path))
     except StopIteration:
         logger.error("Can't determine type for %s" % path)
         return
@@ -48,11 +51,14 @@ class Site(object):
             shutil.rmtree(dest)
 
         self.settings = Settings(parent_tmpl='_base.html')
-        conf = op.join(self.root, 'settings.cfg')
+
+        conf = op.join(self.root, '.cyrax.cfg')
+        if not op.exists(conf):
+            conf = op.join(self.root, 'settings.cfg')
+            if op.exists(conf):
+                logger.warn('settings.cfg is deprecated, please rename to .cyrax.cfg')
         if op.exists(conf):
-            file = open(conf, encoding='utf-8')
-            self.settings.read(file.read())
-            #self.settings.read(file(conf).read().decode('utf-8'))
+            self.settings.read(open(conf, 'rt').read())
 
         site_base_path = base_path(self.url)
         self.dest = op.join(dest, url2path(site_base_path[1:]))
@@ -85,6 +91,7 @@ class Site(object):
 
     def _traverse(self):
         events.emit('traverse-started', site=self)
+        exclude = self.settings.get('exclude', [])
 
         for path, _, files in os.walk(self.root):
             relative = path[len(self.root):].lstrip(os.sep)
@@ -92,10 +99,10 @@ class Site(object):
                 not relative.startswith('utils') and
                 not any(map(ishidden, relative.split(op.sep)))):
                 for f in files:
+                    full = op.join(relative, f)
                     if (f != 'settings.cfg' and
                         not ishidden(f) and
-                        op.join(relative, f) not in self.settings.get('exclude',
-                                                                      [])):
+                        not any(map(lambda x: fnmatch(full, x), exclude))):
                         self.add_page(op.join(relative, f).replace('\\', '/'))
 
         events.emit('site-traversed', site=self)

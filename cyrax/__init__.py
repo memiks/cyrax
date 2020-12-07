@@ -2,7 +2,7 @@ import sys, logging
 import os.path as op
 from optparse import OptionParser
 
-__version__ = '2.5'
+__version__ = '3.1'
 logger = logging.getLogger('cyrax')
 
 def main():
@@ -50,10 +50,6 @@ def main():
         logging.basicConfig(filename=opts.log, level=level)
 
     source = op.abspath(args and args[0] or '.')
-    if not op.exists(op.join(source, 'settings.cfg')):
-        logger.error("Can't find settings.cfg in the current folder")
-        sys.exit(1)
-
     dest = opts.dest or op.join(source, '_build')
 
     if opts.webserve:

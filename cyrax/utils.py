@@ -1,8 +1,19 @@
-import urllib.parse
 import os
 import os.path as op
 import posixpath
 from itertools import takewhile
+
+
+try:
+    import itertools.izip as zip
+except ImportError:
+    pass
+
+    
+try:
+    from urlparse import urlparse, urlunparse
+except ImportError:
+    from urllib.parse import urlparse, urlunparse
 
 
 def makedirs(path):
@@ -21,20 +32,20 @@ def safe_url_join(base, path):
     >>> safe_url_join('http://blog/x', 'foo/bar')
     'http://blog/x/foo/bar'
     """
-    scheme, netloc, basepath, params, query, fragment = urllib.parse.urlparse(base)
+    scheme, netloc, basepath, params, query, fragment = urlparse(base)
     newpath = posixpath.join(basepath, path)
     parts = (scheme, netloc, newpath, params, query, fragment)
-    return urllib.parse.urlunparse(parts)
+    return urlunparse(parts)
 
 
 def base_path(url):
     """
-    >>> get_base_path('http://google.com')
+    >>> base_path('http://google.com')
     '/'
-    >>> get_base_path('http://piranha.org.ua/blog')
+    >>> base_path('http://piranha.org.ua/blog')
     '/blog'
     """
-    basepath = urllib.parse.urlparse(url)[2]
+    basepath = urlparse(url)[2]
     return basepath or '/'
 
 
