@@ -44,7 +44,7 @@ News
 Indeed something happens with each release and you are probably interested what
 (and too lazy to read `changelog`_).
 
-.. _changelog: http://github.com/piranha/cyrax/
+.. _changelog: https://github.com/memiks/cyrax/commits/master/
 
 3.1 (17.12.2019)
 ~~~~~~~~~~~~~~~~
